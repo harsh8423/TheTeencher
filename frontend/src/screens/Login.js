@@ -45,7 +45,7 @@ export default function Login() {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:5000/api/CreateUser", {
+    const response = await fetch("https://the-teencher-api.vercel.app/api/CreateUser", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -71,7 +71,7 @@ export default function Login() {
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:5000/api/LoginUser", {
+    const response = await fetch("https://the-teencher-api.vercel.app/api/LoginUser", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -28,7 +28,7 @@ export default function StudentHome() {
   // console.log(preview.value)
 
   const getstudent = async () => {
-    const response = await fetch("http://localhost:5000/api/getstudent", {
+    const response = await fetch("https://the-teencher-api.vercel.app/api/getstudent", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

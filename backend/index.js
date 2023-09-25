@@ -3,57 +3,57 @@ const mongooseConnection = require("./models/mongooseConnection");
 const app = express();
 const cors = require("cors");
 
-const io = require("socket.io")(8080, {
-  cors: {
-    origin: "http://localhost:3000", // Allow connections from this origin
-  },
-});
+// const io = require("socket.io")(8080, {
+//   cors: {
+//     origin: "http://localhost:3000", // Allow connections from this origin
+//   },
+// });
 
-// Array to store online users
-let onlineUsers = [];
+// // Array to store online users
+// let onlineUsers = [];
 
-// Socket.IO connection event
-io.on("connection", (socket) => {
-  console.log("User connected", socket.id);
+// // Socket.IO connection event
+// io.on("connection", (socket) => {
+//   console.log("User connected", socket.id);
 
-  // Event to add a new user to the onlineUsers array
-  socket.on("addNewUser", (userID) => {
-    const isUserExist = onlineUsers.find((user) => user.userID === userID);
-    if (!isUserExist) {
-      onlineUsers.push({
-        userID,
-        socketId: socket.id,
-      });
-    }
-    // Emit the updated list of online users to all connected clients
-    io.emit("getOnlineUsers", onlineUsers);
-    console.log("onlineUsers", onlineUsers);
-  });
+//   // Event to add a new user to the onlineUsers array
+//   socket.on("addNewUser", (userID) => {
+//     const isUserExist = onlineUsers.find((user) => user.userID === userID);
+//     if (!isUserExist) {
+//       onlineUsers.push({
+//         userID,
+//         socketId: socket.id,
+//       });
+//     }
+//     // Emit the updated list of online users to all connected clients
+//     io.emit("getOnlineUsers", onlineUsers);
+//     console.log("onlineUsers", onlineUsers);
+//   });
 
-  // Event to send a message
-  socket.on("sendMessage", async ({ senderID, message }) => {
-    console.log("received request to send the message");
-    const sender = await onlineUsers.find((user) => user.userID == senderID);
+//   // Event to send a message
+//   socket.on("sendMessage", async ({ senderID, message }) => {
+//     console.log("received request to send the message");
+//     const sender = await onlineUsers.find((user) => user.userID == senderID);
 
-    io.to(sender.socketId).emit("getMessage", {
-      senderID,
-      message,
-      dateStamp: Date.now(),
-    });
-  });
-  // Event for user disconnect
-  socket.on("disconnect", () => {
-    onlineUsers = onlineUsers.filter((user) => user.socketId !== socket.id);
-    console.log("onlineUsers", onlineUsers);
+//     io.to(sender.socketId).emit("getMessage", {
+//       senderID,
+//       message,
+//       dateStamp: Date.now(),
+//     });
+//   });
+//   // Event for user disconnect
+//   socket.on("disconnect", () => {
+//     onlineUsers = onlineUsers.filter((user) => user.socketId !== socket.id);
+//     console.log("onlineUsers", onlineUsers);
 
-    // Emit the updated list of online users to all connected clients
-    io.emit("getOnlineUsers", onlineUsers);
-  });
-});
+//     // Emit the updated list of online users to all connected clients
+//     io.emit("getOnlineUsers", onlineUsers);
+//   });
+// });
 
 app.use(
   cors({
-    origin: "http://localhost:3000", // Only allow requests from this origin
+    origin: "https://the-teencher-frontend.vercel.app/", // Only allow requests from this origin
     methods: ["GET", "POST", "PUT", "DELETE"], // Only allow specified HTTP methods
   })
 );
