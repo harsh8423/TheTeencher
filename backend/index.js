@@ -51,15 +51,13 @@ const cors = require("cors");
 //   });
 // });
 
-app.use(
-  cors({
-    origin: "https://the-teencher-frontend.vercel.app/", // Only allow requests from this origin
-    methods: ["GET", "POST", "PUT", "DELETE"], // Only allow specified HTTP methods
-  })
-);
+app.use(cors({
+  origin: 'https://the-teencher-frontend.vercel.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+}));
 
 // app.use((req,res,next)=>{
-//     res.setHeader("Access-Control-Allow-Origin","http://localhost:3000");
+//     res.setHeader("Access-Control-Allow-Origin","https://the-teencher-frontend.vercel.app/");
 //     res.header(
 //         "Access-Control-Allow-Headers",
 //         "Origin, X-Requested-With, Content-Type, Accept"
